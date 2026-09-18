@@ -1,7 +1,6 @@
 # CLAUDE.md — Hoplite 沙箱作业指导书
 
 你是跑在 **Hoplite 沙箱（Linux / Docker Compose / Modal VM，4 vCPU · 8 GiB RAM · 无 GPU）** 里的 Agent。
-任务：把挂在本仓库 Release 附件上的长课程视频，加工成一份**逐点精讲的学习手册**。
 
 > **本文件优先于 `scripts/SKILL.md`。**
 > `scripts/SKILL.md` 是原作者在本机 Windows 上写的 SOP，里面所有
@@ -10,18 +9,68 @@
 
 ---
 
-## 0. 一次性环境准备（只跑一次）
+## ⚠️ 0. 开工前必做三件事（**别跳过**）
+
+### 0.1 先同步代码 —— **工作区不会自动拉新文件**
 
 ```bash
-bash setup.sh
+git fetch origin && git merge origin/main
+ls -la          # 确认要读的文件都在
 ```
 
-它会：装 ffmpeg → 建 `/opt/venv` → 装 Python 依赖 → 下载 SenseVoice 模型到 `/opt/models/sv`
-→ 导出 `FFMPEG_BIN` / `PY_ASR` / `PY_OCR` / `SENSEVOICE_DIR` 到 `/etc/profile.d/pipeline.sh`。
+**不先同步，会出现"文件不存在"** —— 因为工作区是你克隆时的快照，
+而仓库里的文件可能在之后更新过。
 
-跑完先 `source /etc/profile.d/pipeline.sh`，再继续。
+### 0.2 确认自己在对的仓库里
 
-## 1. 取视频
+```bash
+git remote -v   # 应该指向本项目仓库，不是别的项目
+```
+
+**如果指向别的仓库，立刻停止并汇报** —— 说明工作区绑错仓库了。
+
+### 0.3 装环境（首次才需要）
+
+```bash
+bash setup.sh && source /etc/profile.d/pipeline.sh
+```
+
+装完后 `$PY_ASR` / `$PY_OCR` 是带全部依赖的 Python（**含 Pillow、ffmpeg**）。
+**没装环境就跑 OCR/图片处理会报 `ModuleNotFoundError: No module named 'PIL'`。**
+
+---
+
+## 🔴 读图片必须用对工具
+
+**要「看到」图片内容，必须用 `functions.shell` 的 `image_path` 参数**：
+
+```
+functions.shell(command="ls slides/S001.jpg", image_path="/tmp/rt/slides/S001.jpg")
+```
+
+它会**把图片作为视觉附件返回** —— 你就能看到像素（颜色、手写、版式、插图）。
+
+❌ **不要用 `functions.display_multimedia`** —— 它只返回 URL/Markdown 链接，
+那是「发布给用户看」的工具，不是「读给模型看」的工具。用它会让你误以为"看不见图"。
+
+**详细方法见 `HOW_TO_READ_IMAGES.md`。**
+
+---
+
+## 任务入口
+
+具体要做什么，看根目录这几个文件（按优先级）：
+
+1. **`REQUIREMENTS.md`** —— 考生原始要求 + 验收标准（**最高优先级**）
+2. **`TASK.md`** —— 素材清单与读取方法
+3. **`TASK_READ_BATCH.md`** —— 分批读图作业（102 张幻灯片）
+4. **`HOW_TO_READ_IMAGES.md`** —— 读图方法
+5. 本文件 —— 沙箱操作细节
+
+---
+
+## 1. 取视频（如需要）
+
 
 ```bash
 bash fetch_video.sh          # 下载到 /work/video/，并打印绝对路径
