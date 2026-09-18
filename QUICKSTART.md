@@ -99,14 +99,14 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 
 ### 阶段 2️⃣ · 做学习资料
 
-> ## 📌 作业书：**`STAGE2_BRIEF.md`**
+> ## 📌 作业书：**`STAGE2_BRIEF.md`（高质量版）**
 >
-> ⚠️ **它包含明确的「省钱要求」—— 只读 5 个文件（424 KB），跳过其余 10,817 KB。**
-> **请务必按它的只读清单执行。**
+> ✅ **不设成本限制** —— 素材全部可读，需要看原图就看原图，需要迭代就迭代。
+> **以质量为准。**
 
 **作业书：`STAGE2_BRIEF.md`（执行说明）+ `REQUIREMENTS.md`（验收标准，最高优先级）**
 
-**输入素材**（只读这 5 个）：
+**核心素材**：
 
 | 文件 | 内容 |
 |---|---|
@@ -116,14 +116,17 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 | **`out/OCR_GAPS.md`** | OCR 漏掉信息的汇总 |
 | `out/frames_vision.md` | 开头部分的补充细节 |
 
-**❌ 不要读**：`slides_index.json`（815 KB）、`slides_index.md`（255 KB）、
-`ocr_all.jsonl`（566 KB）、`asr_raw.jsonl`、`uniq_meta.json`、
-`幻灯片总览_高清版.html`（6 MB，大部分是 base64）、两份旧版成品 HTML。
+**另外还可以读**：`slides_index.md/.json`、`ocr_all.jsonl`、`asr_raw.jsonl`、
+`uniq_meta.json`、`slides/manifest.md`，以及**三份旧版成品 HTML**
+（⚠️ 读前先剥离 base64，脚本见 `STAGE2_BRIEF.md` 第 1.3 节）。
+
+**需要时看原图**：`out/frames/slides_102.zip` 解压后用
+`functions.shell` 的 `image_path` **单张**看（核对「认不准」的地方）。
 
 **验收标准**：见 `REQUIREMENTS.md` 第三节（六条：覆盖度 / 通俗度 / 记忆度 /
 做题度 / 体验度 / 形式）。**方法由你自己决定。**
 
-**⚠️ 一次做完，不要分批** —— 分批会让素材被重复加载，成本翻倍。
+**建议分幕做**（每幕一个会话，做深做透），并做两轮（初稿 + 自审修订）。
 
 ---
 
