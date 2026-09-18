@@ -35,21 +35,32 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 
 ## 二、任务分两个阶段
 
-### 阶段 1️⃣ · 把 102 张幻灯片「看」成文字
+### 阶段 1️⃣ · 把画面「看」成文字
 
-**作业书：`TASK_READ_BATCH.md`**（**本次只读一批，读完就停**）
+**作业书（二选一，或都做）：**
+
+| 路线 | 作业书 | 读多少 | 成本 | 覆盖度 |
+|---|---|---|---|---|
+| **A. 幻灯片路线**（推荐先做） | `TASK_READ_BATCH.md` | 102 张 | 3~4 批 / 1 小时 | 覆盖所有**内容不同**的画面 |
+| **B. 全帧路线**（更彻底） | `TASK_READ_FRAMES.md` | 691 帧 | 18~24 批 / 5~9 小时 | 覆盖每一帧 |
+
+> ℹ️ **102 张就是 691 帧的子集**（从 691 帧里挑出的唯一幻灯片）。
+> 所以**路线 A 已经覆盖全部内容**；路线 B 是"更彻底"，不是"必须"。
+>
+> 两条路线都产出「画面文字化」的记录，可以**只做 A**，也可以 **A 之后再补 B**。
 
 **为什么要做**：`out/slides_unique.txt` 的 OCR **抓不到**手写批注、颜色高亮、
 树状/表格/箭头结构、插图 —— 而这些恰恰是老师解题的关键。
 
-**怎么做**：解压 `out/frames/slides_102.zip`，用 **`functions.shell` 的 `image_path`**
-参数逐张读（**一次一张**），写入 `out/slides_vision.md`。
+**怎么做**：解压对应的 zip，用 **`functions.shell` 的 `image_path`**
+参数逐张读（**一次一张**），写入 `out/slides_vision.md` / `out/frames_vision.md`（路线 A）
+或 `out/frames_vision.md`（路线 B）。
 
 > ⚠️ **必须用 `functions.shell` + `image_path`。**
 > ❌ 不要用 `functions.display_multimedia` —— 它只返回链接，不提供视觉输入。
 > 详见 **`HOW_TO_READ_IMAGES.md`**。
 
-**要分多批**（建议每批 20~30 张），**断点续跑，读到哪算哪**。
+**要分多批**，**断点续跑，读到哪算哪**。
 批次范围由用户在对话里告诉你，例如"本次范围：S001~S030"。
 
 ---
@@ -66,7 +77,7 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 | `out/slides_unique.txt` | 102 张幻灯片的 OCR |
 | `out/ocr_all.jsonl` | 691 帧逐帧 OCR |
 | `out/slides_index.md` | 691 行「画面 ↔ 讲解」对照表 |
-| **`out/slides_vision.md`** | **逐张读图记录（阶段 1 的产出，补 OCR 之缺）** |
+| **`out/slides_vision.md` / `out/frames_vision.md`** | **逐张读图记录（阶段 1 的产出，补 OCR 之缺）** |
 | `out/OCR_GAPS.md` | OCR 漏掉信息的汇总（阶段 1 末尾产出） |
 
 **验收标准**：见 `REQUIREMENTS.md` 第三节（六条：覆盖度 / 通俗度 / 记忆度 /
