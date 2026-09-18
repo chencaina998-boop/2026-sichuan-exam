@@ -33,7 +33,21 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 
 ---
 
-## 二、任务分两个阶段
+## 二、任务分三个阶段
+
+### 阶段 0️⃣ · 清点全部文字素材（**先做，几分钟**）
+
+**作业书：`TASK_READ_ALL_TEXT.md`** ｜ **产出：`out/STAGE0_INVENTORY.md`**
+
+把仓库里**所有文字类文件**读一遍并汇报：`out/transcript.txt`、
+`out/slides_unique.txt`、`out/ocr_all.jsonl`、`out/slides_index.md/.json`、
+`out/slides/manifest.md`、`out/uniq_meta.json`、`out/asr_raw.jsonl`、
+`out/幻灯片总览_高清版.html`（**先剥离 base64 再读**），
+以及根目录全部 `.md` 和 `scripts/` 里的 14 个文件。
+
+**目的**：先知道手里有什么，再动手。
+
+---
 
 ### 阶段 1️⃣ · 把画面「看」成文字
 
