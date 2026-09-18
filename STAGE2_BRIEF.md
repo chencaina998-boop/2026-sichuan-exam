@@ -22,25 +22,76 @@ cat out/frames_vision.md      #  22 KB  F001~F040 补充细节（开头部分）
 
 **小计 424 KB。这就是你需要的全部素材。**
 
-### ❌ 不要读这些（信息冗余或体积过大）
+---
+
+## 1.5 ⭐ 另外要看「旧版成品」——**必须先剥离 base64**
+
+考生明确要求：**「在你现有的制作完成的闯关记忆手册和精讲全解的基础之上，再进一步的组织和设计一下语言」**。
+所以你需要**先看看旧版长什么样**，才知道要改进什么。
+
+⚠️ **但这三个 HTML 里内嵌了大量 base64 图片，直接读会烧掉巨量 token。**
+**必须先剥离：**
+
+```bash
+python3 - <<'EOF'
+import re, os
+for f in ['心理学12_精讲全解.html', '心理学12_闯关记忆手册.html', '幻灯片总览_高清版.html']:
+    p = 'out/' + f
+    if not os.path.exists(p):
+        print(f, '不存在'); continue
+    h = open(p, encoding='utf-8').read()
+    before = len(h)
+    h2 = re.sub(r'data:image/jpeg;base64,[A-Za-z0-9+/=]+', '[图]', h)
+    out = '/tmp/' + f + '.txt'
+    open(out, 'w', encoding='utf-8').write(h2)
+    print(f'{f}: {before//1024} KB → {len(h2)//1024} KB  ({out})')
+EOF
+
+# 然后读剥离后的文件
+cat /tmp/心理学12_精讲全解.html.txt        # 剥离后约 70 KB
+cat /tmp/心理学12_闯关记忆手册.html.txt    # 剥离后约 35 KB
+cat /tmp/幻灯片总览_高清版.html.txt        # 剥离后约 300 KB
+```
+
+| 文件 | 原始 | 剥离后 | 值得读吗 |
+|---|---|---|---|
+| `心理学12_精讲全解.html` | 682 KB | **~70 KB** | ✅ **值得** —— 旧版精讲，你要在它基础上改进 |
+| `心理学12_闯关记忆手册.html` | 2,155 KB | **~35 KB** | ✅ **值得** —— 旧版闯关，同上 |
+| `幻灯片总览_高清版.html` | 6,103 KB | **~300 KB** | ⚠️ **大部分冗余** —— 它的内容 = 102 张的（OCR + 讲解），已被 `slides_unique.txt` + `transcript.txt` 覆盖。**只需看它的结构（有多少卡片、每卡有哪些字段），不必逐条读** |
+
+**建议**：前两个**完整读**（约 105 KB）；第三个**只读开头 50 行 + 统计卡片数**即可。
+
+**所以新增阅读量约 105~110 KB**（不是 8.9 MB）。
+
+---
+
+## 1.6 ❌ 不要读这些（信息冗余或体积过大）
 
 | 文件 | 大小 | 为什么不读 |
 |---|---|---|
-| `out/slides_index.json` | 815 KB | 索引，内容与上面 5 个重复 |
+| `out/slides_index.json` | 815 KB | 索引，内容与上面重复 |
 | `out/slides_index.md` | 255 KB | 同上 |
 | `out/ocr_all.jsonl` | 566 KB | 逐帧 OCR，已被 `slides_unique.txt` + `slides_vision.md` 覆盖 |
 | `out/asr_raw.jsonl` | 142 KB | 原始转写，已被 `transcript.txt` 覆盖 |
 | `out/uniq_meta.json` | 58 KB | 帧时间轴元数据 |
 | `out/slides/manifest.md` | 43 KB | 幻灯片清单 |
-| `out/幻灯片总览_高清版.html` | 6,103 KB | **6 MB 里大部分是 base64 图片**，读它会烧掉巨量 token |
-| `out/心理学12_精讲全解.html` | 682 KB | **旧版成品**，参考用，不是素材 |
-| `out/心理学12_闯关记忆手册.html` | 2,155 KB | **旧版成品**，参考用 |
-
-**总计可省 10,817 KB。** 除非确有必要（例如要看某张幻灯片原图），否则**一律不读**。
+| `out/STAGE0_INVENTORY.md` | 15 KB | 阶段 0 清点报告，不是素材 |
 
 > 💡 如果确实需要看某张幻灯片原图：
 > 解压 `out/frames/slides_102.zip`，用 `functions.shell` 的 `image_path` **单张**读。
 > **一次只读一张**，别批量。
+
+---
+
+## 1.7 汇总：本次总共读多少
+
+| 类别 | 大小 |
+|---|---|
+| 核心素材（5 个） | 424 KB |
+| 旧版成品（剥离后，3 个） | ~110 KB |
+| **合计** | **~534 KB** |
+
+（对比：仓库全部素材 11 MB —— **省了 95%**）
 
 ---
 
