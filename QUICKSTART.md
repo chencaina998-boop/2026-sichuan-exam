@@ -99,21 +99,31 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 
 ### 阶段 2️⃣ · 做学习资料
 
-**作业书：`REQUIREMENTS.md`（最高优先级）+ `TASK.md`**
+> ## 📌 作业书：**`STAGE2_BRIEF.md`**
+>
+> ⚠️ **它包含明确的「省钱要求」—— 只读 5 个文件（424 KB），跳过其余 10,817 KB。**
+> **请务必按它的只读清单执行。**
 
-**输入素材**：
+**作业书：`STAGE2_BRIEF.md`（执行说明）+ `REQUIREMENTS.md`（验收标准，最高优先级）**
+
+**输入素材**（只读这 5 个）：
 
 | 文件 | 内容 |
 |---|---|
 | `out/transcript.txt` | 老师讲的每一句话（45,541 字）← **真相源** |
 | `out/slides_unique.txt` | 102 张幻灯片的 OCR |
-| `out/ocr_all.jsonl` | 691 帧逐帧 OCR |
-| `out/slides_index.md` | 691 行「画面 ↔ 讲解」对照表 |
-| **`out/slides_vision.md` / `out/frames_vision.md`** | **逐张读图记录（阶段 1 的产出，补 OCR 之缺）** |
-| `out/OCR_GAPS.md` | OCR 漏掉信息的汇总（阶段 1 末尾产出） |
+| **`out/slides_vision.md`** | **102 张逐张视觉记录**（手写/颜色/结构/插图） |
+| **`out/OCR_GAPS.md`** | OCR 漏掉信息的汇总 |
+| `out/frames_vision.md` | 开头部分的补充细节 |
+
+**❌ 不要读**：`slides_index.json`（815 KB）、`slides_index.md`（255 KB）、
+`ocr_all.jsonl`（566 KB）、`asr_raw.jsonl`、`uniq_meta.json`、
+`幻灯片总览_高清版.html`（6 MB，大部分是 base64）、两份旧版成品 HTML。
 
 **验收标准**：见 `REQUIREMENTS.md` 第三节（六条：覆盖度 / 通俗度 / 记忆度 /
 做题度 / 体验度 / 形式）。**方法由你自己决定。**
+
+**⚠️ 一次做完，不要分批** —— 分批会让素材被重复加载，成本翻倍。
 
 ---
 
