@@ -96,19 +96,37 @@ cat /tmp/幻灯片总览_高清版.html.txt
 
 ### 1.4 原图（**需要时看，这是你的优势**）
 
+**先装环境**（否则会报 `ModuleNotFoundError: No module named 'PIL'`）：
+
 ```bash
-mkdir -p /tmp/sl && cd /tmp/sl
-unzip -q /path/to/out/frames/slides_102.zip -d slides/
+bash setup.sh && source /etc/profile.d/pipeline.sh
+```
+
+**解压**：
+
+```bash
+mkdir -p ./sl && cd ./sl
+unzip -q ../out/frames/slides_102.zip -d slides/
 ls slides/*.jpg | wc -l        # 102
 ```
 
-用 **`functions.shell` 的 `image_path`** 参数看单张：
+**用 `functions.shell` 的 `image_path` 参数看单张**：
 
 ```
-functions.shell(command="ls slides/S050.jpg", image_path="/tmp/sl/slides/S050.jpg")
+functions.shell(command="ls sl/slides/S050.jpg", image_path="sl/slides/S050.jpg")
 ```
 
-> ⚠️ **必须用 `functions.shell` + `image_path`。**
+> ⚠️ **两个实测过的坑（上一轮测试踩到）**：
+>
+> **① `image_path` 必须用「工作区相对路径」，不能用 `/tmp/...` 绝对路径。**
+> 用绝对路径会报错：`shell image_path must stay inside the workspace`
+> → 所以解压到**工作区内的目录**（比如 `./sl/`），不要解压到 `/tmp/`。
+>
+> **② 必须先 `bash setup.sh`**，否则 Pillow 没装，
+> 想裁剪/压缩图片时会报 `ModuleNotFoundError: No module named 'PIL'`。
+> （直接看图不需要 Pillow，但裁剪放大需要。）
+>
+> **③ 必须用 `functions.shell` + `image_path`。**
 > ❌ 不要用 `functions.display_multimedia`（只返回链接，不提供视觉输入）。
 > 详见 `HOW_TO_READ_IMAGES.md`。
 
@@ -116,7 +134,7 @@ functions.shell(command="ls slides/S050.jpg", image_path="/tmp/sl/slides/S050.jp
 - `slides_vision.md` 里标了「认不准」的地方
 - 图表结构复杂、光看文字描述没把握
 - 需要确认颜色/高亮/手写位置
-- **不要试图一次看完 102 张** —— 按需看，一次一张
+- **一次只能看 1 张** —— 按需看，别贪多
 
 ---
 
