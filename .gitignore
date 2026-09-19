@@ -1,0 +1,8 @@
+# 解压出来的原图与构建中间产物，不入库
+sl/
+build/shots/
+build/img/
+build/ledger_*.json
+/work/
+*.wav
+frames/
