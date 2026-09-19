@@ -116,6 +116,10 @@ bash setup.sh && source /etc/profile.d/pipeline.sh
 | **`out/OCR_GAPS.md`** | OCR 漏掉信息的汇总 |
 | `out/frames_vision.md` | 开头部分的补充细节 |
 
+**⭐ 参考样式（考生认可的风格，必看）**：`参考样式/第一章_心理学概述_学习卡片_汇总_模块3版.html`
++ `参考样式/README.md`（风格拆解说明）。
+**参考它，但不必被它框住 —— 能做得更好就做更好的。**
+
 **另外还可以读**：`slides_index.md/.json`、`ocr_all.jsonl`、`asr_raw.jsonl`、
 `uniq_meta.json`、`slides/manifest.md`，以及**三份旧版成品 HTML**
 （⚠️ 读前先剥离 base64，脚本见 `STAGE2_BRIEF.md` 第 1.3 节）。
